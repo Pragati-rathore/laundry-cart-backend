@@ -1,0 +1,31 @@
+{
+  "name": "laundry-cart-backend",
+  "version": "1.0.0",
+  "description": "Laundry Cart Rest API using NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pragati-rathore/laundry-cart-backend.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Pragati-rathore/laundry-cart-backend/issues"
+  },
+  "homepage": "https://github.com/Pragati-rathore/laundry-cart-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
