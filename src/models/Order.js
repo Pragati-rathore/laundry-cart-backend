@@ -3,12 +3,26 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const User = require("./User");
+const Store = require("./Store");
 
 const orderSchema = new Schema(
     {
         userId: { type: ObjectId, ref: User, required: true },
         addId: { type: ObjectId, required: true }, //store address id from user add array
+        storeAdd: { type: ObjectId, ref: Store, required: true },
         order: [productSchema],
+        status: {
+            type: String,
+            enum: [
+                "Ready to pickup",
+                "In washing",
+                "Canceled",
+                "Ready to deliver",
+                "In ironing",
+            ],
+            required: true,
+            default: "Ready to pickup",
+        },
     },
     { timestamps: true }
 );
@@ -27,12 +41,12 @@ const productSchema = new Schema({
         ],
         required: true,
     },
-    serviceCharge: {
-        wash: { type: Number, required: true },
-        iron: { type: Number, required: true },
-        dryClean: { type: Number, required: true },
-        bleaching: { type: Number, required: true },
-    },
+    //serviceCharge: {
+    //wash: { type: Number, required: true },
+    //iron: { type: Number, required: true },
+    //dryClean: { type: Number, required: true },
+    //bleaching: { type: Number, required: true },
+    //},
     quantity: { type: Number, required: true, default: 0 },
     washType: {
         wash: { type: Boolean, required: true, default: false },
@@ -42,6 +56,6 @@ const productSchema = new Schema({
     },
 });
 
-const Order = mongoose.model('orders', orderSchema);
+const Order = mongoose.model("orders", orderSchema);
 
 module.exports = Order;
