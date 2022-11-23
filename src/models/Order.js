@@ -30,15 +30,15 @@ const orderSchema = new Schema(
 const productSchema = new Schema({
     prodType: {
         type: String,
-        enum: [
-            "shirts",
-            "tshirts",
-            "trousers",
-            "jeans",
-            "boxers",
-            "joggers",
-            "others",
-        ],
+        //enum: [
+            //"shirts",
+            //"tshirts",
+            //"trousers",
+            //"jeans",
+            //"boxers",
+            //"joggers",
+            //"others",
+        //],
         required: true,
     },
     //serviceCharge: {
