@@ -6,6 +6,6 @@ const productTypeSchema = new Schema({
     prodCharges: [Number], //[wash, iron, dryClean, bleaching]
 });
 
-const ProductType = mongoose.model("productTypes", productTypeSchema);
+const ProductType = mongoose.model("producttypes", productTypeSchema);
 
 module.exports = ProductType;
