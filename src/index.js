@@ -1,46 +1,42 @@
-const mongoose = require("mongoose");
-const app = require("./app");
+// const mongoose =require("mongoose")
+const express =require ("express")
+const dotenv =require("dotenv")
+const app= express();
+dotenv.config({path:"./config.env"})
+// require("./db/conn")
+require("../db/conn")
+app.use(require("./routes/register"))
+app.use(require("./routes/login"))
+// const User= require("./models/userSchema")
+const Usercol = require("./models/User")
+const port=process.env.PORT
+const middleware=(req,res,next)=>{
+    console.log("hello middleware")
+    next();
+}
+// middleware()
 
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
+app.get("/", (req,res)=>{
+    res.send("hello from ")
+})
+app.get("/home", (req,res)=>{
 
-mongoose.connect(MONGODB_URI, { dbName: "laundrycart" }, (err) => {
-    if (err) {
-        console.log("Mongoose connect error:: ");
-        console.dir(err);
-    }
-});
+    res.send("hello from ")
+})
+app.get("/pricing", (req,res)=>{
+    res.cookie("test1", "user")
+    res.send("hello from ")
+})
+app.get("/signin", (req,res)=>{
+    res.send("hello from ")
+})
+app.get("/signup", (req,res)=>{
+    res.send("hello from ")
+})
+app.get("/career", (req,res)=>{
+    res.send("hello from ")
+})
 
-mongoose.connection.on("connecting", () => {
-    console.log("DB Connecting...");
-});
-
-mongoose.connection.on("connected", () => {
-    console.log("DB Connected");
-});
-
-mongoose.connection.on("reconnected", () => {
-    console.log("DB Reconnected");
-});
-
-mongoose.connection.on("disconnecting", () => {
-    console.log("DB Disconnecting...");
-});
-
-mongoose.connection.on("disconnected", () => {
-    console.log("DB Disconnected");
-});
-
-mongoose.connection.on("error", (err) => {
-    console.log("Mongoose Error::");
-    console.dir(err);
-});
-
-app.listen(PORT, (err) => {
-    if (err) {
-        console.log("App listen err::");
-        console.dir(err);
-    } else {
-        console.log("App listening on PORT:: ", PORT);
-    }
-});
+app.listen(port,()=>{
+    console.log(`server is up at ${port} `)
+})
