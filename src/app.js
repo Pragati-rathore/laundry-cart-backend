@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (_req, res) => {
     res.send("<h1>Hello World</h1>");
+
 });
 
 app.use("/orders", ordersRoute);
