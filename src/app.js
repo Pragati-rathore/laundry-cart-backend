@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const orders = require("./routes/orders")
+const ordersRoute = require("./routes/orders");
 
 //body-parsers
 app.use(express.json());
@@ -11,6 +11,6 @@ app.get("/", (_req, res) => {
 
 });
 
-app.use("/app",orders)
+app.use("/orders", ordersRoute);
 
 module.exports = app;

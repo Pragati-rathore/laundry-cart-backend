@@ -15,10 +15,8 @@ const userSchema = new Schema({
     phone: { type: Number, required: true },
     password: { type: String, required: true },
     address: [addressSchema],
-    token: { type: String, required: true },
+    token: { type: String },
 });
-
-
 
 const User = mongoose.model("users", userSchema);
 

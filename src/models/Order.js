@@ -9,13 +9,13 @@ const productSchema = new Schema({
     prodType: {
         type: String,
         //enum: [
-            //"shirts",
-            //"tshirts",
-            //"trousers",
-            //"jeans",
-            //"boxers",
-            //"joggers",
-            //"others",
+        //"shirts",
+        //"tshirts",
+        //"trousers",
+        //"jeans",
+        //"boxers",
+        //"joggers",
+        //"others",
         //],
         required: true,
     },
@@ -37,8 +37,14 @@ const productSchema = new Schema({
 const orderSchema = new Schema(
     {
         userId: { type: ObjectId, ref: User, required: true },
-        addId: { type: ObjectId, required: true }, //store address id from user add array
-        storeAdd: { type: ObjectId, ref: Store, required: true },
+        add: {
+            addName: { type: String, required: true, default: "Home" },
+            address: { type: String, required: true },
+            pincode: { type: Number, required: true },
+            state: { type: String, required: true },
+            district: { type: String, required: true },
+        },
+        storeId: { type: ObjectId, ref: Store, required: true },
         order: [productSchema],
         status: {
             type: String,
@@ -55,7 +61,6 @@ const orderSchema = new Schema(
     },
     { timestamps: true }
 );
-
 
 
 const Order = mongoose.model("orders", orderSchema);
