@@ -6,13 +6,11 @@ const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const authenticate = require("./routes/utils/auth");
 
-//body-parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (_req, res) => {
     res.send("<h1>Hello World</h1>");
-
 });
 
 app.use("/register", registerRoute);
