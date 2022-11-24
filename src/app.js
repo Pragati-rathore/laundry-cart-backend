@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const ordersRoute = require("./routes/orders");
 const productTypeRoute = require("./routes/productType");
+const registerRoute = require("./routes/register");
+const loginRoute = require("./routes/login");
+const authenticate = require("./routes/utils/auth");
 
 //body-parsers
 app.use(express.json());
@@ -12,7 +15,12 @@ app.get("/", (_req, res) => {
 
 });
 
+app.use("/register", registerRoute);
+app.use("/login", loginRoute);
+
+app.use("/orders", authenticate);
 app.use("/orders", ordersRoute);
+
 app.use("/products", productTypeRoute);
 
 module.exports = app;
