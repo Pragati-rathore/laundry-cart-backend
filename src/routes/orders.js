@@ -4,11 +4,9 @@ const Order = require("../models/Order");
 
 router.post("/", async (req, res) => {
     try {
-        //TODO take userId from Auth middleware
-        //const {_id: userId} = req.user;
-        //const userId = "some id";
+        const {id: userId, email} = req.tokenPayload;
 
-        const { userId, add, storeId, order } = req.body;
+        const { add, storeId, order } = req.body;
 
         const result = await Order.create({
             userId,
@@ -35,10 +33,10 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/", (_req, res) => {
+router.get("/", (req, res) => {
     try {
-        //search using UserId
-        Order.find({})
+        const {id: userId, email} = req.tokenPayload;
+        Order.find({userId})
             .then((data) => {
                 res.status(200).json({
                     status: "success",
