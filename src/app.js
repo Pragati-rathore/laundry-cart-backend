@@ -6,6 +6,10 @@ const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const authenticate = require("./routes/utils/auth");
 
+const cors = require('cors');
+
+app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
