@@ -39,9 +39,10 @@ router.post(
       if (userExist) {
         return res
           .status(400)
-          .json({ status: "failed",
-                    message:
-                        "user already exists give a unique email and phone number", });
+          .json({
+            status: "failed",
+            message: "user already exists give a unique email and phone number",
+          });
       }
       const hashedPass = await hash(password, saltRounds);
       const userdata = new User({

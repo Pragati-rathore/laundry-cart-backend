@@ -18,10 +18,11 @@ router.post(
     try {
       const inputErrors = validationResult(req);
       if (!inputErrors.isEmpty()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           status: "failed",
           message: "invalid data for user login",
-          errors: inputErrors.array()});
+          errors: inputErrors.array(),
+        });
       }
       const { username, password } = req.body; //username is phone or email
 
