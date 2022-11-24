@@ -5,14 +5,12 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("sever connected");
-  })
-  .catch((err) => {
-    console.log("not connected some error hapening");
-  });
+mongoose.connect(MONGODB_URI, { dbName: "laundrycart" }, (err) => {
+  if (err) {
+    console.log("Mongoose connect error:: ");
+    console.dir(err);
+  }
+});
 
 mongoose.connection.on("connecting", () => {
   console.log("DB Connecting...");
