@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const SECRET = process.env.SECRET || "this is a secret";
 const Schema = mongoose.Schema;
+
 const addressSchema = new Schema({
   addName: { type: String, required: true, default: "Home" },
   address: { type: String, required: true },
@@ -20,7 +18,6 @@ const userSchema = new Schema({
   token: { type: String },
 });
 
-//hashing bycript
-
 const User = mongoose.model("users", userSchema);
+
 module.exports = User;
