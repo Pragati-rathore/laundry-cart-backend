@@ -1,10 +1,8 @@
 const router = require("express").Router();
-const express = require("express");
 const { hash } = require("bcrypt");
 const saltRounds = process.env.SALT_ROUNDS || 10;
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
-router.use(express.json());
 
 router.post(
   "/",
@@ -16,7 +14,6 @@ router.post(
   body("state").isLength({ min: 2 }),
   body("pincode").isLength({ min: 6, max: 6 }),
   body("district").isLength({ min: 3 }),
-
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -41,8 +38,10 @@ router.post(
       const userExist = await User.findOne({ $or: [{ email }, { phone }] });
       if (userExist) {
         return res
-          .status(422)
-          .json({ error: "email or phone already present use different one" });
+          .status(400)
+          .json({ status: "failed",
+                    message:
+                        "user already exists give a unique email and phone number", });
       }
       const hashedPass = await hash(password, saltRounds);
       const userdata = new User({
@@ -59,7 +58,6 @@ router.post(
           },
         ],
       });
-      //bycript
 
       const userRegis = await userdata.save();
       if (userRegis) {
@@ -80,6 +78,5 @@ router.post(
     }
   }
 );
-//login
 
 module.exports = router;

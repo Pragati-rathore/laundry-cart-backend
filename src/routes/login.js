@@ -1,14 +1,15 @@
 const router = require("express").Router();
+
+const User = require("../models/User");
+
 const { compare } = require("bcrypt");
+
 const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET || "this is a secret";
 const expiresIn = "12d";
 
 const { body, validationResult } = require("express-validator");
 
-const User = require("../models/User");
-
-//login
 router.post(
   "/",
   body("username").isString({ min: 3 }),
@@ -17,7 +18,10 @@ router.post(
     try {
       const inputErrors = validationResult(req);
       if (!inputErrors.isEmpty()) {
-        return res.status(400).json({ errors: inputErrors.array() });
+        return res.status(400).json({ 
+          status: "failed",
+          message: "invalid data for user login",
+          errors: inputErrors.array()});
       }
       const { username, password } = req.body; //username is phone or email
 
