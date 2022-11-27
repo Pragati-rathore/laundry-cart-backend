@@ -46,6 +46,8 @@ const orderSchema = new Schema(
         },
         storeId: { type: ObjectId, ref: Store, required: true },
         order: [productSchema],
+        quantity: {type: Number, required: true, default: 0},
+        total: {type: Number, required: true, default: 0},
         status: {
             type: String,
             enum: [
