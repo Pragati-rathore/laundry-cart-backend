@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
             storeId,
             order,
             quantity,
-            total
+            total,
         });
 
         await result.populate("storeId");
@@ -38,13 +38,14 @@ router.post("/", async (req, res) => {
 router.get("/", (req, res) => {
     try {
         const { id: userId, email } = req.tokenPayload;
-        Order.find({ userId }).populate("storeId")
+        Order.find({ userId })
+            .populate("storeId")
             .then((data) => {
-                    res.status(200).json({
-                        status: "success",
-                        message: "successfully fetched all orders of user",
-                        orders: data,
-                    });
+                res.status(200).json({
+                    status: "success",
+                    message: "successfully fetched all orders of user",
+                    orders: data,
+                });
             })
             .catch((err) => {
                 console.log("Err while fetching the orders:: ");
@@ -69,6 +70,14 @@ router.delete("/", async (req, res) => {
         const { orderId } = req.body;
 
         const result = await Order.findByIdAndDelete(orderId);
+
+        if (!result) {
+            return res.status(400).json({
+                status: "failed",
+                message: "order cancellation failed",
+                orderId,
+            });
+        }
 
         res.json({
             status: "success",
